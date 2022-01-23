@@ -1,14 +1,24 @@
-import { FastifyInstance } from 'fastify';
-import fp from 'fastify-plugin';
+import { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 
-export default fp(async (server: FastifyInstance): Promise<void> => {
-  ['IYA_USER_STORE_SECRET', 'PROFILE_TABLE_NAME', 'ENV', 'REGION', 'DAX_CLUSTER'].forEach((key) => {
-    if (!process.env[key]) {
-      server.log.error({
-        event: 'environment-validation-error',
-        message: `${key} not present in environment variables`,
-      });
-      process.exit(1);
-    }
-  });
-});
+export interface FastifyEnvVarPluginMetadata {
+  variables: string[];
+}
+
+export default fp(
+  async (
+    server: FastifyInstance,
+    options: FastifyEnvVarPluginMetadata
+  ): Promise<void> => {
+    const { variables = [] } = options;
+    variables.forEach((key) => {
+      if (!process.env[key]) {
+        server.log.error({
+          event: "environment-validation-error",
+          message: `${key} not present in environment variables`,
+        });
+        process.exit(1);
+      }
+    });
+  }
+);
