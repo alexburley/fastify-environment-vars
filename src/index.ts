@@ -11,14 +11,23 @@ export default fp(
     options: FastifyEnvVarPluginMetadata
   ): Promise<void> => {
     const { variables = [] } = options;
+    const errs = [];
     variables.forEach((key) => {
       if (!process.env[key]) {
-        server.log.error({
-          event: "environment-validation-error",
-          message: `${key} not present in environment variables`,
-        });
+        errs.push([
+          {
+            event: "environment-validation-error",
+            message: `${key} not present in environment variables`,
+          },
+        ]);
         process.exit(1);
       }
     });
+    if (errs.length) {
+      errs.forEach((err) => {
+        server.log.error(err);
+      });
+      process.exit(1);
+    }
   }
 );
