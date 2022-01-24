@@ -1,12 +1,19 @@
 {
-  "name": "fastify-environment-vars",
-  "version": "1.0.0",
+  "name": "@burlzad/fastify-environment-vars",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist",
+    "readme.md",
+    "!dist/test"
+  ],
   "scripts": {
     "test": "tap src/test/unit/*.test.ts --ts",
     "test:integration:happy": "SOME_ENV_VARIABLE=true ts-node src/test/integration/test.ts",
-    "test:integration:unhappy": "ts-node src/test/integration/test.ts"
+    "test:integration:unhappy": "ts-node src/test/integration/test.ts",
+    "prepublish": "tsc"
   },
   "author": "Alex Burley",
   "license": "ISC",

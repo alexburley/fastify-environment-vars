@@ -1,3 +1,2 @@
-- Tests
 - Example
 - Readme
