@@ -5,23 +5,22 @@ export interface FastifyEnvVarPluginMetadata {
   variables: string[];
 }
 
-export default fp(
+const FastifyEnvironmentVarsPlugin = fp(
   async (
     server: FastifyInstance,
     options: FastifyEnvVarPluginMetadata
   ): Promise<void> => {
     const { variables = [] } = options;
-    const errs = [];
-    variables.forEach((key) => {
-      if (!process.env[key]) {
-        errs.push([
-          {
-            event: "environment-validation-error",
-            message: `${key} not present in environment variables`,
-          },
-        ]);
-        process.exit(1);
-      }
+    const errs = variables.flatMap((key) => {
+      const envVarExists = !!process.env[key];
+      return envVarExists
+        ? []
+        : [
+            {
+              event: "environment-validation-error",
+              message: `${key} not present in environment variables`,
+            },
+          ];
     });
     if (errs.length) {
       errs.forEach((err) => {
@@ -31,3 +30,5 @@ export default fp(
     }
   }
 );
+
+export default FastifyEnvironmentVarsPlugin;
