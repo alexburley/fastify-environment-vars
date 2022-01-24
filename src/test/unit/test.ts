@@ -20,12 +20,12 @@ tap.test("Should end process if env var is missing", async (t) => {
   t.equal(processExitStub.calledWith(1), true);
 });
 
-tap.todo("Should succeed if no environment vars are missing", async (t) => {
+tap.test("Should succeed if no environment vars are missing", async (t) => {
   await createSUT({ variables: ["USER"] })();
   t.equal(processExitStub.calledWith(1), false);
 });
 
-tap.todo("Should succeed if no variables are passed as options", async (t) => {
+tap.test("Should succeed if no variables are passed as options", async (t) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await createSUT({} as any)();
   t.equal(processExitStub.calledWith(1), false);
