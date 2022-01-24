@@ -10,10 +10,11 @@
     "!dist/test"
   ],
   "scripts": {
-    "test": "tap src/test/unit/*.test.ts --ts",
+    "test": "tap src/test/unit/test.ts --ts",
     "test:integration:happy": "SOME_ENV_VARIABLE=true ts-node src/test/integration/test.ts",
     "test:integration:unhappy": "ts-node src/test/integration/test.ts",
-    "prepublish": "tsc"
+    "lint": "eslint ./",
+    "prepublish": "npm run lint && npm t && tsc"
   },
   "author": "Alex Burley",
   "license": "ISC",
