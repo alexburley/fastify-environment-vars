@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tap src/test/FastifyEnvironmentVars.test.ts --ts"
+    "test": "tap src/test/unit/*.test.ts --ts",
+    "test:integration:happy": "SOME_ENV_VARIABLE=true ts-node src/test/integration/test.ts",
+    "test:integration:unhappy": "ts-node src/test/integration/test.ts"
   },
-  "author": "",
+  "author": "Alex Burley",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.10",
@@ -17,6 +19,7 @@
     "eslint": "^8.7.0",
     "fastify": "^3.27.0",
     "fastify-plugin": "^3.0.0",
+    "pino-pretty": "^7.5.0",
     "sinon": "^12.0.1",
     "tap": "^15.1.6",
     "ts-node": "^10.4.0"

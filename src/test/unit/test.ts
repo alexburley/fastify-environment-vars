@@ -1,6 +1,6 @@
 import Sinon, { SinonSandbox, SinonStub } from "sinon";
 import tap from "tap";
-import { createSUT } from "./sut";
+import { createSUT } from "../sut";
 
 let sandbox: SinonSandbox;
 let processExitStub: SinonStub;
